@@ -11,10 +11,12 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment(), null).commit();
+
         setContentView(R.layout.activity_settings);
 
-        //Intent intent = getIntent();
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SettingsFragment(), null).commit();
-//chua chuyen intent vo fragment
+
+
     }
 }

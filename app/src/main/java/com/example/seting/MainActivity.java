@@ -1,5 +1,6 @@
 package com.example.seting;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
@@ -18,39 +19,32 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     String num;
-    Button bt;
+    int color;
     TextView tx_num;
     final int colorMag = Color.rgb(225,198,110);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar my_toolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar my_toolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(my_toolbar);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
+        tx_num = findViewById(R.id.tx_num);
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         num = sharedPref.getString("fav_num", "0");
-
-        bt = (Button) findViewById(R.id.bt);
-        int color = Integer.parseInt(sharedPref.getString("fav_color", String.valueOf(colorMag)));
-        bt.setBackgroundColor(color);
-        bt.setText(String.valueOf(color));
-        tx_num = (TextView) findViewById(R.id.tx_num);
+        color = Integer.parseInt(sharedPref.getString("fav_color", String.valueOf(colorMag)));
         tx_num.setText(num);
+        tx_num.setTextColor(color);
+        my_toolbar.setBackgroundColor(color);
+        //tx_num.setBackgroundColor(color);
 
-
-        bt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
-            }
-        });
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu)//co the ko dung, thi dung phan mac dinh??
+    public boolean onCreateOptionsMenu(@NonNull Menu menu)//co the ko dung, thi dung phan mac dinh??
     {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.option_menu, menu);
@@ -66,4 +60,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }
